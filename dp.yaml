@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rustam-dp
+  labels:
+    app: rustam-dp
+spec:
+  replicas: 3
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      env: rustamdz2
+  template:
+    metadata:
+      labels:
+        env: rustamdz2
+    spec:
+      containers:
+        - name: otus-dz2
+          image: rustamalimuradov/otusdz2:v2
+          ports:
+            - containerPort: 8000
