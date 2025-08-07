@@ -1,14 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: kuber-ingress
+  name: rustam-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /health
 spec:
   rules:
-    #- host: arch.homework
-    - http:
+    - host: arch.homework
+      http:
         paths:
           - path: "/[\\w\\-/]+/health"
             pathType: ImplementationSpecific
@@ -17,8 +17,6 @@ spec:
                 name: rustam-service
                 port:
                   number: 8000
-    - http:
-        paths:
           - path: /health
             pathType: Exact
             backend:
@@ -26,3 +24,4 @@ spec:
                 name: rustam-service
                 port:
                   number: 8000
+  ingressClassName: nginx

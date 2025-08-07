@@ -25,3 +25,19 @@ spec:
           image: rustamalimuradov/otusdz2:v2
           ports:
             - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            failureThreshold: 1
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            terminationGracePeriodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            failureThreshold: 10
+            initialDelaySeconds: 1
+            periodSeconds: 5
+            terminationGracePeriodSeconds: 10
